@@ -3,6 +3,8 @@ from sklearn.svm import SVC
 from sklearn.linear_model import Perceptron
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.naive_bayes import GaussianNB
+
 from sklearn import datasets
 import numpy as np
 
@@ -29,19 +31,21 @@ print(digits.target.shape)
 #now we have data, we need to split this whole chunk of data in to training and testing data set
 #the split is 75% training data and 25% testing data
 from sklearn.model_selection import train_test_split
-x_train,x_test,y_train,y_test=train_test_split(digits.images,digits.target,test_size=0.25)
+x_train,x_test,y_train,y_test=train_test_split(digits.images,digits.target,test_size=0.10)
 
 #adding classifiers 
 clf_KNN=KNeighborsClassifier()
 clf_svm = SVC()
 clf_perceptron = Perceptron()
 clf_tree = tree.DecisionTreeClassifier()
+clf_gnb = GaussianNB()
 
 #train classifiers
 clf_tree.fit(x_train, y_train)
 clf_svm.fit(x_train, y_train)
 clf_perceptron.fit(x_train, y_train)
 clf_KNN.fit(x_train, y_train)
+clf_gnb.fit(x_train, y_train)
 
 # Testing using the same data
 pred_tree = clf_tree.predict(x_test)
@@ -60,7 +64,11 @@ pred_KNN = clf_KNN.predict(x_test)
 acc_KNN = accuracy_score(y_test, pred_KNN) * 100
 print('Accuracy for KNN: {}'.format(acc_KNN))
 
+pred_gnb = clf_gnb.predict(x_test)
+acc_gnb = accuracy_score(y_test, pred_gnb) * 100
+print('Accuracy for gnb: {}'.format(acc_gnb))
+
 # The best classifier from svm, per, KNN
 index = np.argmax([acc_tree, acc_svm, acc_per, acc_KNN])
-classifiers = {0: 'Tree', 1: 'SVM', 2: 'Perceptron', 3: 'KNN'}
+classifiers = {0: 'Tree', 1: 'SVM', 2: 'Perceptron', 3: 'KNN', 4: 'gnb'}
 print('Best species classifier is {}'.format(classifiers[index]))
