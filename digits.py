@@ -71,4 +71,4 @@ print('Accuracy for gnb: {}'.format(acc_gnb))
 # The best classifier from svm, per, KNN
 index = np.argmax([acc_tree, acc_svm, acc_per, acc_KNN])
 classifiers = {0: 'Tree', 1: 'SVM', 2: 'Perceptron', 3: 'KNN', 4: 'gnb'}
-print('Best species classifier is {}'.format(classifiers[index]))
+print('Best classifier is {}'.format(classifiers[index]))
